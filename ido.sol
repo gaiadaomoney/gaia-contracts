@@ -666,9 +666,9 @@ contract GaiaIDO is Ownable {
         if (block.timestamp < endOfWLSale) require(whitelisted[msg.sender], "Only whitelisted members can buy at the moment");
 
         uint256 _purchaseAmount = _calculateSaleQuote(_amountUSDC);
-        require((purchasedAmount[msg.sender] + _purchaseAmount) < maxAllotmentPerBuyer, "Exceeds max allotment per buyer");
+        require((purchasedAmount[msg.sender] + _purchaseAmount) <= maxAllotmentPerBuyer, "Exceeds max allotment per buyer");
 
-        require(_purchaseAmount < totalAmount, "Sold out!");
+        require(_purchaseAmount <= totalAmount, "Sold out!");
         totalAmount = totalAmount.sub(_purchaseAmount);
         purchasedAmount[msg.sender] = purchasedAmount[msg.sender] + _purchaseAmount;
         buyers.push(msg.sender);
